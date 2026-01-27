@@ -1,0 +1,10 @@
+model categories {
+  id         String   @id @default(uuid())
+  name       String
+  slug       String
+  cat_code   String   @unique
+  icon       String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  meals      meals[]
+}

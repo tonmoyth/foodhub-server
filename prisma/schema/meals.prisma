@@ -1,0 +1,18 @@
+model meals {
+  id               String          @id @default(uuid())
+  title            String
+  description      String?
+  price            Int
+  providerId       String
+  provider         providerProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  categoriesId     String
+  categories       categories      @relation(fields: [categoriesId], references: [id], onDelete: Cascade)
+  discount_price   Int?            @default(0)
+  image            String?
+  is_available     Boolean
+  prep_time_minute String?
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
+  reviews          review[]
+  orders           orders[]
+}

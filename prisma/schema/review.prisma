@@ -1,0 +1,10 @@
+model review {
+  id         String   @id @default(uuid())
+  rating     Int      @default(0)
+  comment    String
+  customerId String
+  customer   User     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  mealId     String
+  meal       meals    @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  created_at DateTime @default(now())
+}
