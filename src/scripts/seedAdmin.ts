@@ -32,6 +32,14 @@ async function seedAdmin() {
     );
 
     if (signUnAdmin.ok) {
+      await prisma.user.update({
+        where: {
+          email: adminData.email,
+        },
+        data: {
+          emailVerified: true,
+        },
+      });
       console.log("successfully admin creation");
     }
   } catch (error) {
