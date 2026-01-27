@@ -1,0 +1,42 @@
+import { prisma } from "../lib/prisma";
+
+async function seedAdmin() {
+  try {
+    const adminData = {
+      name: "Nurislam Hasan Tonmoy",
+      email: "tonmoynht1930@gmail.com",
+      password: "123456",
+      role: "ADMIN",
+    };
+
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: adminData.email,
+      },
+    });
+
+    if (existingUser) {
+      throw new Error("User already exists!!");
+    }
+
+    const signUnAdmin = await fetch(
+      "http://localhost:5000/api/auth/sign-up/email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          origin: "http://localhost:3000",
+        },
+        body: JSON.stringify(adminData),
+      },
+    );
+
+    if (signUnAdmin.ok) {
+      console.log("successfully admin creation");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+seedAdmin();

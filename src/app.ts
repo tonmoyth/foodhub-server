@@ -5,7 +5,12 @@ import cors from "cors";
 import { categoriesRouter } from "./modules/categories/categories.route";
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.APP_URL || "http://localhost:3000",
+    credentials: true,
+  }),
+);
 app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json());
 
