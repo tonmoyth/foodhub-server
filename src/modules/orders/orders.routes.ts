@@ -5,6 +5,22 @@ import { UserRole } from "../../../generated/prisma/enums";
 
 const router = Router();
 
-router.post("/", auth(UserRole.CUSTOMER), ordersController.orderCreate);
+router.get(
+  "/",
+  auth(UserRole.CUSTOMER, UserRole.PROVIDER),
+  ordersController.getUsersOrders,
+);
+
+router.get(
+  "/:orderId",
+  auth(UserRole.CUSTOMER, UserRole.PROVIDER),
+  ordersController.getOrderDetails,
+);
+
+router.post(
+  "/",
+  auth(UserRole.CUSTOMER, UserRole.PROVIDER),
+  ordersController.orderCreate,
+);
 
 export const orderRoutes = router;
