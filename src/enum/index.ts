@@ -11,3 +11,8 @@ export enum OrderStatus {
   DELIVERED = "DELIVERED",
   CANCELLED = "CANCELLED",
 }
+
+export enum UserStatus {
+  SUSPEND = "SUSPEND",
+  ACTIVATE = "ACTIVATE",
+}
