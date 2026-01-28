@@ -3,6 +3,8 @@ import express from "express";
 import { auth } from "./lib/auth";
 import cors from "cors";
 import { categoriesRouter } from "./modules/categories/categories.route";
+import { mealsRouter } from "./modules/meals/meals.routes";
+import { providerProfileRouter } from "./modules/providerProfile/providerProfile.routes";
 
 const app = express();
 app.use(
@@ -21,7 +23,9 @@ app.get("/auth/me", async (req, res) => {
   return res.json(session);
 });
 
-app.use("/categories", categoriesRouter);
+app.use("/api/categories", categoriesRouter);
+app.use("/api/provider/meals", mealsRouter);
+app.use("/api/providerProfile", providerProfileRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello FoodHub");
