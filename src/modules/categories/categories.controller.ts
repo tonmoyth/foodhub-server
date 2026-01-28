@@ -15,14 +15,11 @@ const createCategories = async (req: Request, res: Response) => {
 };
 
 const updateCategories = async (req: Request, res: Response) => {
-  const { categorieId } = req.params;
+  const { id } = req.params;
   const data = req.body;
 
   try {
-    const result = await categoriesService.updateCategories(
-      categorieId as string,
-      data,
-    );
+    const result = await categoriesService.updateCategories(id as string, data);
     res.status(201).json(result);
   } catch (e) {
     res.status(400).json({
@@ -33,12 +30,10 @@ const updateCategories = async (req: Request, res: Response) => {
 };
 
 const deleteCategories = async (req: Request, res: Response) => {
-  const { categorieId } = req.params;
+  const { id } = req.params;
 
   try {
-    const result = await categoriesService.deleteCategories(
-      categorieId as string,
-    );
+    const result = await categoriesService.deleteCategories(id as string);
     res.status(200).json(result);
   } catch (e) {
     res.status(400).json({

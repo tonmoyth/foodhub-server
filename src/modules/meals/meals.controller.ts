@@ -19,12 +19,35 @@ const createMeals = async (req: Request, res: Response) => {
   }
 };
 
+const getAllMeals = async (req: Request, res: Response) => {
+  try {
+    const { search } = req.query;
+    const searchString = typeof search === "string" ? search : undefined;
+
+    const categoriesId =
+      typeof req.query.categoriesId === "string"
+        ? req.query.categoriesId
+        : undefined;
+
+    const result = await mealsService.getAllMeals({
+      search: searchString,
+      categoriesId: categoriesId,
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      error: "Failed to fetch meals. Please try again later.",
+      details: error,
+    });
+  }
+};
+
 const updatedMeal = async (req: Request, res: Response) => {
-  const { mealId } = req.params;
+  const { id } = req.params;
   const data = req.body;
 
   try {
-    const result = await mealsService.updatedMeal(data, mealId as string);
+    const result = await mealsService.updatedMeal(data, id as string);
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
@@ -52,10 +75,10 @@ const updateMealOrderStatus = async (req: Request, res: Response) => {
 };
 
 const deletedMeal = async (req: Request, res: Response) => {
-  const { mealId } = req.params;
+  const { id } = req.params;
 
   try {
-    const result = await mealsService.deleteMeal(mealId as string);
+    const result = await mealsService.deleteMeal(id as string);
     res.status(204).json(result);
   } catch (error) {
     res.status(400).json({
@@ -67,6 +90,7 @@ const deletedMeal = async (req: Request, res: Response) => {
 
 export const mealsController = {
   createMeals,
+  getAllMeals,
   updatedMeal,
   updateMealOrderStatus,
   deletedMeal,

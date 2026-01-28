@@ -29,6 +29,8 @@ app.use("/api/categories", categoriesRouter);
 
 app.use("/api/provider/meals", mealsRouter);
 
+app.use("/api/meals", mealsRouter);
+
 app.use("/api/provider/orders", mealsRouter);
 
 app.use("/api/providerProfile", providerProfileRouter);

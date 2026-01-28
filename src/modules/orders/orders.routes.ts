@@ -12,7 +12,7 @@ router.get(
 );
 
 router.get(
-  "/:orderId",
+  "/:id",
   auth(UserRole.CUSTOMER, UserRole.PROVIDER),
   ordersController.getOrderDetails,
 );

@@ -4,13 +4,14 @@ import { UserRole } from "../../../generated/prisma/enums";
 import { mealsController } from "./meals.controller";
 
 const router = Router();
+router.get("/", mealsController.getAllMeals);
 router.post("/", auth(UserRole.PROVIDER), mealsController.createMeals);
-router.put("/:mealId", auth(UserRole.PROVIDER), mealsController.updatedMeal);
+router.put("/:id", auth(UserRole.PROVIDER), mealsController.updatedMeal);
 router.patch(
   "/:id",
   auth(UserRole.PROVIDER),
   mealsController.updateMealOrderStatus,
 );
-router.delete("/:mealId", auth(UserRole.PROVIDER), mealsController.deletedMeal);
+router.delete("/:id", auth(UserRole.PROVIDER), mealsController.deletedMeal);
 
 export const mealsRouter = router;

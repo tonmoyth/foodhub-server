@@ -21,10 +21,10 @@ const orderCreate = async (req: Request, res: Response) => {
 };
 
 const getUsersOrders = async (req: Request, res: Response) => {
-  const userId = req.user?.id;
+  const id = req.user?.id;
 
   try {
-    const result = await ordersService.getUsersOrders(userId as string);
+    const result = await ordersService.getUsersOrders(id as string);
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
@@ -35,10 +35,10 @@ const getUsersOrders = async (req: Request, res: Response) => {
 };
 
 const getOrderDetails = async (req: Request, res: Response) => {
-  const { orderId } = req.params;
+  const { id } = req.params;
 
   try {
-    const result = await ordersService.getOrderDetails(orderId as string);
+    const result = await ordersService.getOrderDetails(id as string);
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({

@@ -5,7 +5,7 @@ import { UserRole } from "../../../generated/prisma/enums";
 
 const router = Router();
 router.post("/", auth(UserRole.ADMIN), categoriesController.createCategories);
-router.patch("/:categorieId", categoriesController.updateCategories);
-router.delete("/:categorieId", categoriesController.deleteCategories);
+router.patch("/:id", categoriesController.updateCategories);
+router.delete("/:id", categoriesController.deleteCategories);
 
 export const categoriesRouter = router;
