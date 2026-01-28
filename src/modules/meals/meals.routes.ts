@@ -5,6 +5,7 @@ import { mealsController } from "./meals.controller";
 
 const router = Router();
 router.get("/", mealsController.getAllMeals);
+router.get("/:id", mealsController.getMealDetails);
 router.post("/", auth(UserRole.PROVIDER), mealsController.createMeals);
 router.put("/:id", auth(UserRole.PROVIDER), mealsController.updatedMeal);
 router.patch(

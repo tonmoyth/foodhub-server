@@ -74,6 +74,19 @@ const updateMealOrderStatus = async (req: Request, res: Response) => {
   }
 };
 
+const getMealDetails = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const result = await mealsService.getMealDetails(id as string);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      error: "Failed to fetch meals. Please try again later.",
+      details: error,
+    });
+  }
+};
+
 const deletedMeal = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -93,5 +106,6 @@ export const mealsController = {
   getAllMeals,
   updatedMeal,
   updateMealOrderStatus,
+  getMealDetails,
   deletedMeal,
 };

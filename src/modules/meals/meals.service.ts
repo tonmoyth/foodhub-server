@@ -75,6 +75,14 @@ const updateMealOrderStatus = async (id: string, status: OrderStatus) => {
   });
 };
 
+const getMealDetails = async (mealId: string) => {
+  return await prisma.meals.findUnique({
+    where: {
+      id: mealId,
+    },
+  });
+};
+
 const deleteMeal = async (mealId: string) => {
   return await prisma.meals.delete({
     where: {
@@ -88,5 +96,6 @@ export const mealsService = {
   updatedMeal,
   updateMealOrderStatus,
   deleteMeal,
+  getMealDetails,
   getAllMeals,
 };
