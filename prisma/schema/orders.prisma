@@ -7,17 +7,17 @@ enum OrderStatus {
 }
 
 model orders {
-  id               String          @id @default(uuid())
-  meal_title       String
-  meal_id          String
-  meal             meals           @relation(fields: [meal_id], references: [id], onDelete: Cascade)
-  customerId       String
-  user             User            @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  providerId       String
-  provider         providerProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
-  total_amount     Int
-  status           OrderStatus     @default(PENDING)
-  delivery_address String
-  created_at       DateTime        @default(now())
-  updated_at       DateTime        @updatedAt
+  id                String          @id @default(uuid())
+  meal_title        String
+  meal_id           String
+  meal              meals           @relation(fields: [meal_id], references: [id], onDelete: Cascade)
+  customerId        String
+  user              User            @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  providerProfileId String
+  provider          providerProfile @relation(fields: [providerProfileId], references: [id], onDelete: Cascade)
+  total_amount      Int
+  status            OrderStatus     @default(PENDING)
+  delivery_address  String
+  created_at        DateTime        @default(now())
+  updated_at        DateTime        @updatedAt
 }

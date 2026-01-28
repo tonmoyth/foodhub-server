@@ -5,6 +5,7 @@ import cors from "cors";
 import { categoriesRouter } from "./modules/categories/categories.route";
 import { mealsRouter } from "./modules/meals/meals.routes";
 import { providerProfileRouter } from "./modules/providerProfile/providerProfile.routes";
+import { orderRoutes } from "./modules/orders/orders.routes";
 
 const app = express();
 app.use(
@@ -24,8 +25,12 @@ app.get("/auth/me", async (req, res) => {
 });
 
 app.use("/api/categories", categoriesRouter);
+
 app.use("/api/provider/meals", mealsRouter);
+
 app.use("/api/providerProfile", providerProfileRouter);
+
+app.use("/api/orders", orderRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello FoodHub");
