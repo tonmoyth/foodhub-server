@@ -13,6 +13,21 @@ const getAllProviders = async (req: Request, res: Response) => {
   }
 };
 
+const getProviderWithMenu = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await providerProfileService.getProviderWithMenu(
+      id as string,
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      error: "Failed to fetch providers. Please try again later.",
+      details: error,
+    });
+  }
+};
+
 const createProviderProfile = async (req: Request, res: Response) => {
   const userId = req.user?.id;
   const data = {
@@ -33,5 +48,6 @@ const createProviderProfile = async (req: Request, res: Response) => {
 
 export const providerController = {
   createProviderProfile,
+  getProviderWithMenu,
   getAllProviders,
 };

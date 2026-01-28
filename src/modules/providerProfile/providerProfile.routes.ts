@@ -6,6 +6,7 @@ import auth from "../../middlewares/auth";
 
 const router = Router();
 router.get("/", providerController.getAllProviders);
+router.get("/:id", providerController.getProviderWithMenu);
 router.post(
   "/",
   auth(UserRole.PROVIDER),
