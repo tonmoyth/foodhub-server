@@ -5,5 +5,7 @@ import { mealsController } from "./meals.controller";
 
 const router = Router();
 router.post("/", auth(UserRole.PROVIDER), mealsController.createMeals);
+router.put("/:mealId", auth(UserRole.PROVIDER), mealsController.updatedMeal);
+router.delete("/:mealId", auth(UserRole.PROVIDER), mealsController.deletedMeal);
 
 export const mealsRouter = router;
