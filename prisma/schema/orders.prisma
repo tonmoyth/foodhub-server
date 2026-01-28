@@ -1,7 +1,7 @@
 enum OrderStatus {
   PENDING
-  ACCEPTED
-  COOKING
+  PREPARING
+  READY
   DELIVERED
   CANCELLED
 }

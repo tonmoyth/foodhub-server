@@ -34,6 +34,23 @@ const updatedMeal = async (req: Request, res: Response) => {
   }
 };
 
+const updateMealOrderStatus = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  try {
+    const result = await mealsService.updateMealOrderStatus(
+      id as string,
+      status,
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      error: "status updated failed",
+      details: error,
+    });
+  }
+};
+
 const deletedMeal = async (req: Request, res: Response) => {
   const { mealId } = req.params;
 
@@ -51,5 +68,6 @@ const deletedMeal = async (req: Request, res: Response) => {
 export const mealsController = {
   createMeals,
   updatedMeal,
+  updateMealOrderStatus,
   deletedMeal,
 };

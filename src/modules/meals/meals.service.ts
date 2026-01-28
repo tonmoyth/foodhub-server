@@ -1,4 +1,5 @@
 import type { meals } from "../../../generated/prisma/browser";
+import type { OrderStatus } from "../../enum";
 import { prisma } from "../../lib/prisma";
 
 const createMeal = async (data: meals) => {
@@ -16,6 +17,17 @@ const updatedMeal = async (data: meals, mealId: string) => {
   });
 };
 
+const updateMealOrderStatus = async (id: string, status: OrderStatus) => {
+  return await prisma.orders.update({
+    where: {
+      id,
+    },
+    data: {
+      status,
+    },
+  });
+};
+
 const deleteMeal = async (mealId: string) => {
   return await prisma.meals.delete({
     where: {
@@ -27,5 +39,6 @@ const deleteMeal = async (mealId: string) => {
 export const mealsService = {
   createMeal,
   updatedMeal,
+  updateMealOrderStatus,
   deleteMeal,
 };

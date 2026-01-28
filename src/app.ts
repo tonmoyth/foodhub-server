@@ -6,6 +6,7 @@ import { categoriesRouter } from "./modules/categories/categories.route";
 import { mealsRouter } from "./modules/meals/meals.routes";
 import { providerProfileRouter } from "./modules/providerProfile/providerProfile.routes";
 import { orderRoutes } from "./modules/orders/orders.routes";
+import { adminRouter } from "./modules/admin/admin.routes";
 
 const app = express();
 app.use(
@@ -28,9 +29,13 @@ app.use("/api/categories", categoriesRouter);
 
 app.use("/api/provider/meals", mealsRouter);
 
+app.use("/api/provider/orders", mealsRouter);
+
 app.use("/api/providerProfile", providerProfileRouter);
 
 app.use("/api/orders", orderRoutes);
+
+app.use("/api/admin/users", adminRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello FoodHub");
