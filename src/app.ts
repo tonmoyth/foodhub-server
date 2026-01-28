@@ -33,7 +33,7 @@ app.use("/api/meals", mealsRouter);
 
 app.use("/api/provider/orders", mealsRouter);
 
-app.use("/api/providerProfile", providerProfileRouter);
+app.use("/api/providers", providerProfileRouter);
 
 app.use("/api/orders", orderRoutes);
 

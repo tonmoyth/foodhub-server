@@ -5,6 +5,7 @@ import { providerController } from "./providerProfile.controller";
 import auth from "../../middlewares/auth";
 
 const router = Router();
+router.get("/", providerController.getAllProviders);
 router.post(
   "/",
   auth(UserRole.PROVIDER),
