@@ -7,6 +7,8 @@ import { mealsRouter } from "./modules/meals/meals.routes";
 import { providerProfileRouter } from "./modules/providerProfile/providerProfile.routes";
 import { orderRoutes } from "./modules/orders/orders.routes";
 import { adminRouter } from "./modules/admin/admin.routes";
+import { notFound } from "./middlewares/notFound";
+import errorHandler from "./middlewares/globalErrorHandler";
 
 const app = express();
 app.use(
@@ -42,5 +44,7 @@ app.use("/api/admin/users", adminRouter);
 app.get("/", (req, res) => {
   res.send("Hello FoodHub");
 });
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
