@@ -9,6 +9,7 @@ import { orderRoutes } from "./modules/orders/orders.routes";
 import { adminRouter } from "./modules/admin/admin.routes";
 import { notFound } from "./middlewares/notFound";
 import errorHandler from "./middlewares/globalErrorHandler";
+import { ReviewRoutes } from "./modules/review/review.routes";
 
 const app = express();
 app.use(
@@ -40,6 +41,8 @@ app.use("/api/providers", providerProfileRouter);
 app.use("/api/orders", orderRoutes);
 
 app.use("/api/admin/users", adminRouter);
+
+app.use("/api/review", ReviewRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello FoodHub");

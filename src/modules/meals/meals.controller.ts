@@ -10,11 +10,17 @@ const createMeals = async (req: Request, res: Response) => {
 
   try {
     const result = await mealsService.createMeal(data);
-    res.status(201).json(result);
-  } catch (error) {
+
+    res.status(201).json({
+      success: true,
+      message: "Meal created successfully",
+      data: result,
+    });
+  } catch (error: any) {
     res.status(400).json({
-      error: "meal creation failed",
-      details: error,
+      success: false,
+      message: "Meal creation failed. Please try again.",
+      error: error.message || error,
     });
   }
 };
@@ -33,11 +39,17 @@ const getAllMeals = async (req: Request, res: Response) => {
       search: searchString,
       categoriesId: categoriesId,
     });
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json({
-      error: "Failed to fetch meals. Please try again later.",
-      details: error,
+
+    res.status(200).json({
+      success: true,
+      message: "Meals fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch meals. Please try again later.",
+      error: error.message || error,
     });
   }
 };
@@ -48,11 +60,17 @@ const updatedMeal = async (req: Request, res: Response) => {
 
   try {
     const result = await mealsService.updatedMeal(data, id as string);
-    res.status(200).json(result);
-  } catch (error) {
+
+    res.status(200).json({
+      success: true,
+      message: "Meal updated successfully",
+      data: result,
+    });
+  } catch (error: any) {
     res.status(400).json({
-      error: "meal update failed",
-      details: error,
+      success: false,
+      message: "Meal update failed. Please try again.",
+      error: error.message || error,
     });
   }
 };
@@ -60,29 +78,43 @@ const updatedMeal = async (req: Request, res: Response) => {
 const updateMealOrderStatus = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { status } = req.body;
+
   try {
     const result = await mealsService.updateMealOrderStatus(
       id as string,
       status,
     );
-    res.status(200).json(result);
-  } catch (error) {
+
+    res.status(200).json({
+      success: true,
+      message: "Meal order status updated successfully",
+      data: result,
+    });
+  } catch (error: any) {
     res.status(400).json({
-      error: "status updated failed",
-      details: error,
+      success: false,
+      message: "Status update failed. Please try again.",
+      error: error.message || error,
     });
   }
 };
 
 const getMealDetails = async (req: Request, res: Response) => {
   const { id } = req.params;
+
   try {
     const result = await mealsService.getMealDetails(id as string);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json({
-      error: "Failed to fetch meals. Please try again later.",
-      details: error,
+
+    res.status(200).json({
+      success: true,
+      message: "Meal details fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      success: false,
+      message: "Meal not found or failed to fetch details.",
+      error: error.message || error,
     });
   }
 };
@@ -92,11 +124,17 @@ const deletedMeal = async (req: Request, res: Response) => {
 
   try {
     const result = await mealsService.deleteMeal(id as string);
-    res.status(204).json(result);
-  } catch (error) {
+
+    res.status(200).json({
+      success: true,
+      message: "Meal deleted successfully",
+      data: result,
+    });
+  } catch (error: any) {
     res.status(400).json({
-      error: "meal deleted failed",
-      details: error,
+      success: false,
+      message: "Meal delete failed. Please try again.",
+      error: error.message || error,
     });
   }
 };
