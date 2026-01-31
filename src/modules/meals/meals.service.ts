@@ -12,9 +12,11 @@ const createMeal = async (data: meals) => {
 const getAllMeals = async ({
   search,
   categoriesId,
+  maxPrice,
 }: {
   search: string | undefined;
   categoriesId: string | undefined;
+  maxPrice: number | undefined;
 }) => {
   const andCondition: mealsWhereInput[] = [];
 
@@ -47,9 +49,20 @@ const getAllMeals = async ({
     });
   }
 
+  if (maxPrice) {
+    andCondition.push({
+      price: {
+        lte: maxPrice,
+      },
+    });
+  }
+
   const result = await prisma.meals.findMany({
     where: {
       AND: andCondition,
+    },
+    include: {
+      providerProfile: true,
     },
   });
   return result;
@@ -79,6 +92,9 @@ const getMealDetails = async (mealId: string) => {
   return await prisma.meals.findUnique({
     where: {
       id: mealId,
+    },
+    include: {
+      providerProfile: true,
     },
   });
 };

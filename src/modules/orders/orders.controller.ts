@@ -8,7 +8,7 @@ const orderCreate = async (req: Request, res: Response) => {
     ...req.body,
     customerId: userId,
   };
-
+  console.log(orderData);
   try {
     const result = await ordersService.createOrders(orderData);
 
@@ -18,6 +18,7 @@ const orderCreate = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({
       success: false,
       message: "Order creation failed. Please try again.",

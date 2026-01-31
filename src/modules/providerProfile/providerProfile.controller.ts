@@ -19,6 +19,27 @@ const getAllProviders = async (req: Request, res: Response) => {
   }
 };
 
+const getSignleProvider = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  try {
+    const result = await providerProfileService.getSignleProvider(
+      userId as string,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Providers fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch providers. Please try again later.",
+      error: error.message || error,
+    });
+  }
+};
+
 const getProviderWithMenu = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -66,6 +87,7 @@ const createProviderProfile = async (req: Request, res: Response) => {
 };
 
 export const providerController = {
+  getSignleProvider,
   createProviderProfile,
   getProviderWithMenu,
   getAllProviders,

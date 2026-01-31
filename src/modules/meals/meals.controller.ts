@@ -35,9 +35,13 @@ const getAllMeals = async (req: Request, res: Response) => {
         ? req.query.categoriesId
         : undefined;
 
+    const Price = Number(req.query.maxPrice);
+    const maxPrice = typeof Price === "number" ? Price : undefined
+
     const result = await mealsService.getAllMeals({
       search: searchString,
       categoriesId: categoriesId,
+      maxPrice,
     });
 
     res.status(200).json({

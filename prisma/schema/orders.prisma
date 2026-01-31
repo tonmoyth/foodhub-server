@@ -6,18 +6,33 @@ enum OrderStatus {
   CANCELLED
 }
 
+enum PaymentMethod {
+  CASH_ON_DELIVERY
+}
+
 model orders {
-  id                String          @id @default(uuid())
-  meal_title        String
-  meal_id           String
-  meal              meals           @relation(fields: [meal_id], references: [id], onDelete: Cascade)
-  customerId        String
-  user              User            @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  id String @id @default(uuid())
+
+  // Customer Info (from checkout card)
+  customerName    String
+  customerPhone   String
+  deliveryAddress String
+  paymentMethod   PaymentMethod @default(CASH_ON_DELIVERY)
+
+  // Relations
+  customerId String
+  customer   User   @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
   providerProfileId String
   provider          providerProfile @relation(fields: [providerProfileId], references: [id], onDelete: Cascade)
-  total_amount      Int
-  status            OrderStatus     @default(PENDING)
-  delivery_address  String
-  created_at        DateTime        @default(now())
-  updated_at        DateTime        @updatedAt
+
+  // Order Details
+  totalAmount Int
+  status      OrderStatus @default(PENDING)
+
+  // Metadata
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  meals      meals?   @relation(fields: [mealsId], references: [id])
+  mealsId    String?
 }

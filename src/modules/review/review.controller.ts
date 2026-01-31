@@ -22,6 +22,7 @@ const createReview = async (req: Request, res: Response) => {
       success: false,
       message: error.message || "Review creation failed",
     });
+    console.log(error);
   }
 };
 

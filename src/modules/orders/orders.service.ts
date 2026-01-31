@@ -20,6 +20,9 @@ const getOrderDetails = async (id: string) => {
     where: {
       id,
     },
+    include: {
+      provider: true,
+    },
   });
 };
 

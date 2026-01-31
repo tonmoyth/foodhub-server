@@ -5,6 +5,14 @@ const getAllProvider = async () => {
   return await prisma.providerProfile.findMany();
 };
 
+const getSignleProvider = async (userId: string) => {
+  return await prisma.providerProfile.findFirst({
+    where: {
+      userId,
+    },
+  });
+};
+
 const getProviderWithMenu = async (id: string) => {
   return await prisma.providerProfile.findMany({
     where: {
@@ -23,6 +31,7 @@ const createProviderProfile = async (data: providerProfile) => {
 };
 
 export const providerProfileService = {
+  getSignleProvider,
   createProviderProfile,
   getProviderWithMenu,
   getAllProvider,

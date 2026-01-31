@@ -1,6 +1,24 @@
 import type { Request, Response } from "express";
 import { categoriesService } from "./categories.service";
 
+const getCategories = async (req: Request, res: Response) => {
+  try {
+    const result = await categoriesService.getCategories();
+
+    res.status(201).json({
+      success: true,
+      message: "fetch successfully",
+      data: result,
+    });
+  } catch (e: any) {
+    res.status(400).json({
+      success: false,
+      message: "fetch failed. Please try again.",
+      error: e.message || e,
+    });
+  }
+};
+
 const createCategories = async (req: Request, res: Response) => {
   const data = req.body;
 
@@ -63,6 +81,7 @@ const deleteCategories = async (req: Request, res: Response) => {
 };
 
 export const categoriesController = {
+  getCategories,
   createCategories,
   updateCategories,
   deleteCategories,

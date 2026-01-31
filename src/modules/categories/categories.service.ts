@@ -1,6 +1,10 @@
 import type { categories } from "../../../generated/prisma/browser";
 import { prisma } from "../../lib/prisma";
 
+const getCategories = async () => {
+  return await prisma.categories.findMany();
+};
+
 const createCategories = async (data: categories) => {
   return await prisma.categories.create({
     data,
@@ -25,6 +29,7 @@ const deleteCategories = async (id: string) => {
 };
 
 export const categoriesService = {
+  getCategories,
   createCategories,
   updateCategories,
   deleteCategories,
