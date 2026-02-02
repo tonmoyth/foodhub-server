@@ -11,10 +11,18 @@ router.get(
   ordersController.getUsersOrders,
 );
 
+router.get("/all", auth(UserRole.ADMIN), ordersController.getAllOrders);
+
 router.get(
   "/:id",
   auth(UserRole.CUSTOMER, UserRole.PROVIDER),
   ordersController.getOrderDetails,
+);
+
+router.get(
+  "/provider/:id",
+  auth(UserRole.PROVIDER),
+  ordersController.getOrderForProvider,
 );
 
 router.post(

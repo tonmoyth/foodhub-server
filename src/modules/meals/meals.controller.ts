@@ -36,7 +36,7 @@ const getAllMeals = async (req: Request, res: Response) => {
         : undefined;
 
     const Price = Number(req.query.maxPrice);
-    const maxPrice = typeof Price === "number" ? Price : undefined
+    const maxPrice = typeof Price === "number" ? Price : undefined;
 
     const result = await mealsService.getAllMeals({
       search: searchString,
@@ -51,6 +51,26 @@ const getAllMeals = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     res.status(500).json({
+      success: false,
+      message: "Failed to fetch meals. Please try again later.",
+      error: error.message || error,
+    });
+  }
+};
+
+const getMealByProvider = async (req: Request, res: Response) => {
+  const providerId = req.user?.id;
+
+  try {
+    const result = await mealsService.getMealsProvider(providerId as string);
+
+    res.status(200).json({
+      success: true,
+      message: "Meals fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(400).json({
       success: false,
       message: "Failed to fetch meals. Please try again later.",
       error: error.message || error,
@@ -145,6 +165,7 @@ const deletedMeal = async (req: Request, res: Response) => {
 
 export const mealsController = {
   createMeals,
+  getMealByProvider,
   getAllMeals,
   updatedMeal,
   updateMealOrderStatus,

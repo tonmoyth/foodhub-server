@@ -68,6 +68,14 @@ const getAllMeals = async ({
   return result;
 };
 
+const getMealsProvider = async (providerId: string) => {
+  return await prisma.meals.findMany({
+    where: {
+      providerId,
+    },
+  });
+};
+
 const updatedMeal = async (data: meals, mealId: string) => {
   return await prisma.meals.update({
     where: {
@@ -109,6 +117,7 @@ const deleteMeal = async (mealId: string) => {
 
 export const mealsService = {
   createMeal,
+  getMealsProvider,
   updatedMeal,
   updateMealOrderStatus,
   deleteMeal,

@@ -6,7 +6,6 @@ const getAllUsers = async () => {
 };
 
 const updateUserStatus = async (id: string, status: UserStatus) => {
-  console.log(id, status);
   return await prisma.user.update({
     where: {
       id,
@@ -15,7 +14,6 @@ const updateUserStatus = async (id: string, status: UserStatus) => {
       status,
     },
   });
-  console.log("updated", { id, status });
 };
 
 export const adminService = {

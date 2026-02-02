@@ -8,7 +8,7 @@ const orderCreate = async (req: Request, res: Response) => {
     ...req.body,
     customerId: userId,
   };
-  console.log(orderData);
+
   try {
     const result = await ordersService.createOrders(orderData);
 
@@ -47,6 +47,24 @@ const getUsersOrders = async (req: Request, res: Response) => {
   }
 };
 
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const result = await ordersService.getAllOrders();
+
+    res.status(200).json({
+      success: true,
+      message: " orders fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to fetch orders. Please try again.",
+      error: error.message || error,
+    });
+  }
+};
+
 const getOrderDetails = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -67,8 +85,30 @@ const getOrderDetails = async (req: Request, res: Response) => {
   }
 };
 
+const getOrderForProvider = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const result = await ordersService.getOrderForProvider(id as string);
+
+    res.status(200).json({
+      success: true,
+      message: "Order  fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(404).json({
+      success: false,
+      message: "Order not found or failed to fetch .",
+      error: error.message || error,
+    });
+  }
+};
+
 export const ordersController = {
   orderCreate,
+  getAllOrders,
+  getOrderForProvider,
   getUsersOrders,
   getOrderDetails,
 };

@@ -5,6 +5,14 @@ const getCategories = async () => {
   return await prisma.categories.findMany();
 };
 
+const getSingleCategories = async (id: string) => {
+  return await prisma.categories.findUnique({
+    where: {
+      id,
+    },
+  });
+};
+
 const createCategories = async (data: categories) => {
   return await prisma.categories.create({
     data,
@@ -30,6 +38,7 @@ const deleteCategories = async (id: string) => {
 
 export const categoriesService = {
   getCategories,
+  getSingleCategories,
   createCategories,
   updateCategories,
   deleteCategories,

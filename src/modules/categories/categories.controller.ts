@@ -5,7 +5,26 @@ const getCategories = async (req: Request, res: Response) => {
   try {
     const result = await categoriesService.getCategories();
 
-    res.status(201).json({
+    res.status(200).json({
+      success: true,
+      message: "fetch successfully",
+      data: result,
+    });
+  } catch (e: any) {
+    res.status(400).json({
+      success: false,
+      message: "fetch failed. Please try again.",
+      error: e.message || e,
+    });
+  }
+};
+
+const getSingleCategories = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const result = await categoriesService.getSingleCategories(id as string);
+
+    res.status(200).json({
       success: true,
       message: "fetch successfully",
       data: result,
@@ -82,6 +101,7 @@ const deleteCategories = async (req: Request, res: Response) => {
 
 export const categoriesController = {
   getCategories,
+  getSingleCategories,
   createCategories,
   updateCategories,
   deleteCategories,

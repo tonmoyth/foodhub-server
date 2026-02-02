@@ -15,6 +15,10 @@ const getUsersOrders = async (id: string) => {
   });
 };
 
+const getAllOrders = async () => {
+  return await prisma.orders.findMany();
+};
+
 const getOrderDetails = async (id: string) => {
   return await prisma.orders.findUnique({
     where: {
@@ -26,8 +30,18 @@ const getOrderDetails = async (id: string) => {
   });
 };
 
+const getOrderForProvider = async (id: string) => {
+  return await prisma.orders.findMany({
+    where: {
+      providerProfileId: id,
+    },
+  });
+};
+
 export const ordersService = {
   createOrders,
+  getAllOrders,
+  getOrderForProvider,
   getUsersOrders,
   getOrderDetails,
 };
