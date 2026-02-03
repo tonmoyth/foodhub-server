@@ -6,6 +6,13 @@ import auth from "../../middlewares/auth";
 
 const router = Router();
 router.get("/", providerController.getAllProviders);
+
+router.get(
+  "/stats",
+  auth(UserRole.PROVIDER),
+  providerController.getProviderStats,
+);
+
 router.get(
   "/single",
   auth(UserRole.PROVIDER),

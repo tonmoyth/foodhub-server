@@ -19,6 +19,27 @@ const getAllProviders = async (req: Request, res: Response) => {
   }
 };
 
+const getProviderStats = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  try {
+    const result = await providerProfileService.getProviderStats(
+      userId as string,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Providers stats fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch providers stats. Please try again later.",
+      error: error.message || error,
+    });
+  }
+};
+
 const getSignleProvider = async (req: Request, res: Response) => {
   const userId = req.user?.id;
   try {
@@ -91,4 +112,5 @@ export const providerController = {
   createProviderProfile,
   getProviderWithMenu,
   getAllProviders,
+  getProviderStats,
 };

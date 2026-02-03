@@ -5,6 +5,30 @@ const getAllProvider = async () => {
   return await prisma.providerProfile.findMany();
 };
 
+// totalOrders,totalMenu,TotalReview
+const getProviderStats = async (id: string) => {
+  const getProviderProfileById = await prisma.providerProfile.findMany({
+    where: {
+      userId: id,
+    },
+  });
+  const providerProfileId = getProviderProfileById[0]?.id;
+
+  if (providerProfileId) {
+    return await prisma.$transaction(async (tx) => {
+      const [totalOrders, totalMenu] = await Promise.all([
+        await tx.orders.count({ where: { providerProfileId } }),
+        await tx.meals.count({ where: { providerId: id } }),
+      ]);
+
+      return {
+        totalOrders,
+        totalMenu,
+      };
+    });
+  }
+};
+
 const getSignleProvider = async (userId: string) => {
   return await prisma.providerProfile.findFirst({
     where: {
@@ -35,4 +59,5 @@ export const providerProfileService = {
   createProviderProfile,
   getProviderWithMenu,
   getAllProvider,
+  getProviderStats,
 };

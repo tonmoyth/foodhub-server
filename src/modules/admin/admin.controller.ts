@@ -19,6 +19,25 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+const getStats = async (req: Request, res: Response) => {
+  try {
+    const result = await adminService.getStats();
+
+    res.status(200).json({
+      success: true,
+      message: "Statistics fetched successfully",
+      data: result,
+    });
+  } catch (e: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch Statistics. Please try again later.",
+      error: e.message || e,
+    });
+    console.log(e);
+  }
+};
+
 const updateUserStatus = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -43,4 +62,5 @@ const updateUserStatus = async (req: Request, res: Response) => {
 export const adminController = {
   getAllUsers,
   updateUserStatus,
+  getStats,
 };
